@@ -35,7 +35,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.FileCache = void 0;
 const fs = __importStar(require("fs/promises"));
 const path = __importStar(require("path"));
-const utils_1 = require("../../shared/utils/utils");
+const utils_1 = require("./utils/utils");
 class FileCache {
     constructor(cacheDir) {
         this.cacheDir = cacheDir;

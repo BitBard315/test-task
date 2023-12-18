@@ -10,7 +10,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const cache_1 = require("./app/cache/cache");
-const server_1 = require("./app/proxy/server");
+// import { httpProxyServer } from "./app/proxy/httpServer";
+const httpsServer_1 = require("./app/proxy/httpsServer");
 const cache = new cache_1.FileCache('./cache');
 (() => __awaiter(void 0, void 0, void 0, function* () {
     cache.set('cache1', { data: 'first item' }, 30);
@@ -22,10 +23,11 @@ const cache = new cache_1.FileCache('./cache');
     yield cache.delete('cache2');
     // await cache.clear();
 }))();
-const proxyOptions = {
-    targetHost: 'catfact.ninja',
-    targetPort: 443,
-    targetProtocol: 'https',
-    cache: new cache_1.FileCache('./cache'),
-};
-const proxyServer = new server_1.HttpProxyServer(proxyOptions);
+// https server
+httpsServer_1.httpsProxyServer.listen(httpsServer_1.PORT, () => {
+    console.log(`Proxy server listening on port ${httpsServer_1.PORT}`);
+});
+// httpServer
+// httpProxyServer.listen(PORT, () => {
+//   console.log(`Proxy server listening on port ${PORT}`);
+// });

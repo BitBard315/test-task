@@ -1,27 +1,30 @@
 import { FileCache } from "./app/cache/cache";
-import { HttpProxyServer, ProxyServerOptions } from "./app/proxy/server";
+// import { httpProxyServer } from "./app/proxy/httpServer";
+import { httpsProxyServer, PORT } from "./app/proxy/httpsServer";
 
 const cache = new FileCache('./cache');
 
 (async () => {
-    cache.set('cache1', { data: 'first item' }, 30);
-    cache.set('cache2', { data: 'second item' }, 40);
+  cache.set('cache1', { data: 'first item' }, 30);
+  cache.set('cache2', { data: 'second item' }, 40);
 
-    const value1 = await cache.get('cache1');
-    console.log('First value:', value1);
-    const value2 = await cache.get('cache2');
-    console.log('Second value:', value2);
+  const value1 = await cache.get('cache1');
+  console.log('First value:', value1);
+  const value2 = await cache.get('cache2');
+  console.log('Second value:', value2);
 
-    await cache.delete('cache2');
+  await cache.delete('cache2');
 
-    // await cache.clear();
-  })();
+  // await cache.clear();
+})();
 
-  const proxyOptions: ProxyServerOptions = {
-    targetHost: 'catfact.ninja',
-    targetPort: 443,
-    targetProtocol: 'https',
-    cache: new FileCache('./cache'),
-};
+// https server
+httpsProxyServer.listen(PORT, () => {
+  console.log(`Proxy server listening on port ${PORT}`);
+});
 
-const proxyServer = new HttpProxyServer(proxyOptions);
+
+// httpServer
+// httpProxyServer.listen(PORT, () => {
+//   console.log(`Proxy server listening on port ${PORT}`);
+// });

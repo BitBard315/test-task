@@ -1,6 +1,6 @@
 import * as fs from 'fs/promises';
 import * as path from 'path';
-import { createDir, getFilePath } from '../../shared/utils/utils';
+import { createDir, getFilePath } from './utils/utils';
 
 interface CacheEntry {
     data: any;
